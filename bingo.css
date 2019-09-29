@@ -76,7 +76,7 @@ body, button {
 #by {
     font-size: 11px;
     text-align: center;
-    line-height: 1.2;
+    line-height: 1.25;
 }
 
 #noprint, #noprint button {
@@ -174,4 +174,23 @@ button {
 button:active {
     position: relative;
     top: 1px;
+}
+
+@media screen and (max-width: 570px) {
+    body, button {
+        font-size: 11px;
+        text-transform: unset;
+        letter-spacing: 0;
+    }
+
+    #bingo {
+        border-width: 3px 0 0 3px;
+    }
+    .tile {
+        border-width: 0 3px 3px 0;
+    }
+
+    .desktop {
+        display: none;
+    }
 }

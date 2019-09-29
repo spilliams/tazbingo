@@ -36,24 +36,31 @@ function resize() {
     h = $(window).height();
     h = h - h % aD;
     w = aN * h / aD;
+    console.log(`intial height is ${h}. initial width is ${w}`);
 
-    // this would adjust for window width
-    // if (w > $(window).width()) {
-    //     h = h * w / $(window).width();
-    //     w = $(window).width();
-    // }
+    // don't overflow horizontally
+    bad = $(window).width() - 10;
+    if (w > bad) {
+        h = h * bad / w;
+        w = bad;
+    }
+    console.log(`after accounting for overflowing width: ${h}, ${w}`);
 
     // colophon is below the fold, and is the final 10% of the height
     colophon = 10;
     finalH = h / ((100-colophon)/100);
+    console.log(`card is ${finalH} by ${w}`);
     $("#card").css({ "height": "" + finalH + "px", "width": "" + w + "px" });
 
     // bingo is square
+    console.log(`bingo is ${w} high`);
     $("#bingo").css({"height": ""+w+"px"});
 
     // title is the remainder of the original aspect ratio, minus 2 points
-    title = 100 * (aD - aN) / aD;
-    $("#title").css({"height": ""+title-2+"%"});
+    title = (100 * (aD - aN) / aD) - 2;
+    colophon += 2;
+    console.log(`title is ${title} and colophon is ${colophon}`);
+    $("#title").css({"height": ""+title+"%"});
     $("#by").css({"height": ""+colophon+2+"%"});
 }
 
@@ -68,16 +75,11 @@ function another() {
 }
 
 function randomTiles(n, list) {
-    console.log(`getting ${n} items from list: ${list}`);
     tiles = [];
     for (i = 0; i < n; i++) {
-        console.log(`  i: ${i}`);
         r = getRandomInt(list.length);
-        console.log(`    r: ${r}`);
         tile = list[r];
-        console.log(`    tile: ${tile}`);
         list.splice(r, 1);
-        console.log(`    list: ${list}`);
         tiles.push(tile);
     }
     return tiles;
