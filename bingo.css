@@ -32,8 +32,8 @@ colophon is 10% of final height
 final height is 700 / .90 = 778
 */
 #card {
+    background-color: black;
     width: 583px;
-    height: 778px;
 }
 
 #title {
@@ -42,6 +42,7 @@ final height is 700 / .90 = 778
 
 #title img {
     margin-top: 11%;
+    margin-bottom: 2%;
 }
 
 #bingo {
@@ -120,6 +121,11 @@ button {
 html, body {
     margin: 0;
     padding: 0;
+    border: 0 none transparent;
+}
+
+body {
+    margin-bottom: 5%;
 }
 
 #card {
@@ -181,6 +187,10 @@ button:active {
         font-size: 11px;
         text-transform: unset;
         letter-spacing: 0;
+    }
+
+    #by {
+        font-size: 8px;
     }
 
     #bingo {
