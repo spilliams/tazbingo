@@ -1,32 +1,18 @@
-var tileList = [
-    "Fantasy merchant cat",
-    "Monster made out of other monsters",
-    "Celebrity appearance",
-    "Under&shy;staffed secret organization",
-    "Lunar<br>interludes",
-    "OP queer mage",
-    "Clint sings",
-    "Techni&shy;cally, aliens",
-    "Justin voices his own sidekick",
-    "Ghosts",
-    "Competent woman who can bail the PCs out",
-    "Flirting with<br>monsters",
-    "Candle&shy;nights episode",
-    "PC loses their powers",
-    "Fixation on a<br>single type of food",
-    "Travis has a pet",
-    "Elevators",
-    "Griffin flakes out on a character voice",
-    "Chekhov's party member",
-    "Vacation episode",
-    "Extreme sports",
-    "Friendship is magic",
-    "Planet-destroying force",
-    "Catch&shy;phrases"
-];
-
 $(document).ready(another());
 window.onresize = resize;
+
+function airtableTiles(view) {
+    var Airtable = require('airtable');
+    var db = new Airtable({apiKey: 'keyqw38Y5vuJlSnaB'}).base('appjKWzB7gDN1NDgm');
+    return db('Table 1').select({
+        fields: ["HTML", "Contributor"],
+        view: view,
+    }).all().then(records => {
+        return records;
+    }).catch(e => {
+        console.log(`error fetching airtable records from ${view}: ${e}`);
+    });
+}
 
 function resize() {
     // aspect ratio = aN/aD
@@ -68,10 +54,29 @@ function resize() {
 function another() {
     resize();
 
-    // set tile text
-    tiles = randomTiles(24, tileList.slice(0));
-    $(".gen").each(function (index) {
-        $(this).html(tiles[index]);
+    Promise.all([airtableTiles("Live Regular Spaces"), airtableTiles("Live Free Spaces")]).then(([regularTiles, freeTiles]) => {
+        contributors = ["@jrfbz", "@spilliams"];
+        // set tile text
+        regularTiles = randomTiles(24, regularTiles);
+        $(".gen").each(function (index) {
+            tile = regularTiles[index].fields;
+            $(this).html(tile.HTML);
+            contributors.push(tile.Contributor);
+        });
+
+        // set free tile
+        freeTiles = randomTiles(1, freeTiles);
+        tile = freeTiles[0].fields;
+        $("#free").html(tile.HTML+"<br>(Free Space)");
+        contributors.push(tile.Contributor);
+
+        // update contributors
+        contributors = new Set(contributors);
+        contributors.delete("@jrfbz");
+        contributors.delete("@spilliams");
+        contributors = [...contributors];
+        console.log(contributors);
+        $("#contributors").text(contributors.join(", "));
     });
 }
 
