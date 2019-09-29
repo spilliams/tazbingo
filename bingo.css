@@ -1,0 +1,169 @@
+/* ---------
+ Fancy Shit
+--------- */
+
+@media screen {
+    #title, #bingo, .tile, #by {
+        mix-blend-mode: screen;
+    }
+}
+
+@media print {
+    #noprint {
+        display: none;
+    }
+}
+
+.fancy {
+    background-image: url("bg.svg");
+    background-size: cover;
+}
+
+/* -----
+  Sizes
+----- */
+
+#card {
+    width: 700px;
+    height: 770px;
+}
+
+#title {
+    height: 11%;
+}
+
+#title img {
+    margin-top: 6%;
+}
+
+#bingo {
+    height: 83%;
+    width: 100%;
+}
+
+#by {
+    height: 6%;
+}
+
+/* ----
+ Types
+---- */
+
+body, button {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 0.95;
+    text-transform: uppercase;
+    text-decoration: none;
+    hyphens: auto;
+}
+
+.tile-text {
+    text-align: center;
+}
+
+#by {
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+#noprint, #noprint button {
+    font-size: 10px;
+}
+
+/* -----
+ Colors
+----- */
+
+#title, .tile, #by, a, a:hover, a:visited {
+    background: white;
+    color: black;
+}
+
+.black {
+    background: black;
+    color: white;
+}
+
+#bingo, button {
+    border-radius: 4px;
+}
+
+#bingo, .tile, button {
+    border: 5px solid black;
+}
+
+.tile:nth-child(25) {
+    border-bottom-right-radius: 4px;
+}
+
+/* -----
+ Layout
+----- */
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+#card {
+    background-size: cover;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#title {
+    position: relative;
+}
+
+#title img {
+    width: 100%;
+}
+
+#bingo {
+    box-sizing: border-box;
+    border-width: 5px 0 0 5px;
+    border-style: solid;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.tile {
+    width: calc(20%);
+    height: calc(20%);
+    display: flex;
+    box-sizing: border-box;
+    border-width: 0 5px 5px 0;
+    border-style: solid;
+    padding: 5px;
+}
+
+.tile-text {
+    margin: auto;
+}
+
+#by {
+    padding-top: 9px;
+}
+
+#noprint {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+button {
+    border-width: 1px;
+    display: inline-block;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+button:active {
+    position: relative;
+    top: 1px;
+}
