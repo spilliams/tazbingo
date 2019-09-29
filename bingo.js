@@ -55,7 +55,7 @@ function another() {
     resize();
 
     Promise.all([airtableTiles("Live Regular Spaces"), airtableTiles("Live Free Spaces")]).then(([regularTiles, freeTiles]) => {
-        contributors = ["@jrfbz", "@spilliams"];
+        contributors = ["@jrfbz", "@spilliams", "@jeslach"];
         // set tile text
         regularTiles = randomTiles(24, regularTiles);
         $(".gen").each(function (index) {
