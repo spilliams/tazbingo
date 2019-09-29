@@ -26,20 +26,44 @@ var tileList = [
 ];
 
 $(document).ready(another());
+window.onresize = resize;
 
-function another() {
+function resize() {
+    // aspect ratio = aN/aD
     aN = 10.0;
     aD = 12.0;
     // set sizes
     h = $(window).height();
     h = h - h % aD;
     w = aN * h / aD;
-    $("#card").css({ "height": "" + h + "px", "width": "" + w + "px" });
+
+    // this would adjust for window width
+    // if (w > $(window).width()) {
+    //     h = h * w / $(window).width();
+    //     w = $(window).width();
+    // }
+
+    // colophon is below the fold, and is the final 10% of the height
+    colophon = 10;
+    finalH = h / ((100-colophon)/100);
+    $("#card").css({ "height": "" + finalH + "px", "width": "" + w + "px" });
+
+    // bingo is square
+    $("#bingo").css({"height": ""+w+"px"});
+
+    // title is the remainder of the original aspect ratio, minus 2 points
+    title = 100 * (aD - aN) / aD;
+    $("#title").css({"height": ""+title-2+"%"});
+    $("#by").css({"height": ""+colophon+2+"%"});
+}
+
+function another() {
+    resize();
 
     // set tile text
     tiles = randomTiles(24, tileList.slice(0));
     $(".gen").each(function (index) {
-        $(this).html(tileList[index]);
+        $(this).html(tiles[index]);
     });
 }
 

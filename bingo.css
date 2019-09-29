@@ -22,27 +22,36 @@
 /* -----
   Sizes
 ----- */
-
+/* sizes here are if user has no javascript */
+/*
+assume: window height 700px
+assume: aspect ratio 10/12
+card width and bingo height is 700*10/12
+title is 700*2/12
+colophon is 10% of final height
+final height is 700 / .90 = 778
+*/
 #card {
-    width: 700px;
-    height: 770px;
+    width: 583px;
+    height: 778px;
 }
 
 #title {
-    height: 11%;
+    height: 117px;
 }
 
 #title img {
-    margin-top: 6%;
+    margin-top: 11%;
 }
 
 #bingo {
-    height: 83%;
+    height: 583px;
     width: 100%;
 }
 
 #by {
-    height: 6%;
+    height: 10%;
+    padding-top: 4.5%;
 }
 
 /* ----
@@ -92,7 +101,11 @@ body, button {
     border-radius: 4px;
 }
 
-#bingo, .tile, button {
+button {
+    border-style: none;
+}
+
+#bingo, .tile {
     border: 5px solid black;
 }
 
@@ -146,10 +159,6 @@ html, body {
     margin: auto;
 }
 
-#by {
-    padding-top: 9px;
-}
-
 #noprint {
     position: absolute;
     top: 10px;
@@ -157,7 +166,6 @@ html, body {
 }
 
 button {
-    border-width: 1px;
     display: inline-block;
     cursor: pointer;
     padding: 4px 8px;
