@@ -54,21 +54,58 @@ function resize() {
 function another() {
     resize();
 
+    // start with existing tiles on the board because maybe we lost connection
+    // to database?
+    contributors = ["@jrfbz", "@spilliams", "@jeslach"];
+    defaultRegularTiles = [
+        {"fields": {"HTML": "Fantasy merchant cat", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "OP queer mage", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Competent woman who can bail the PCs out", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Fixation on a<br>single type of food", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Vacation episode", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Monster made out of other monsters", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Clint sings", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Flirting with<br>monsters", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Travis has a pet", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Extreme sports", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Celebrity appearance", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Techni&shy;cally, aliens", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Elevators", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Friendship is magic", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Under&shy;staffed<br>secret organization", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Justin voices his own<br>sidekick", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Candle&shy;nights episode", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Griffin flakes out on a<br>character voice", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Planet-destroying force", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Lunar<br>interludes", "Contributor": "@jeslach"}},
+        {"fields": {"HTML": "Ghosts", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "PC loses their<br>powers", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Chekhov's party<br>member", "Contributor": "@jrfbz"}},
+        {"fields": {"HTML": "Catch&shy;phrases", "Contributor": "@spilliams"}},
+    ];
+
     Promise.all([airtableTiles("Live Regular Spaces"), airtableTiles("Live Free Spaces")]).then(([regularTiles, freeTiles]) => {
-        contributors = ["@jrfbz", "@spilliams", "@jeslach"];
         // set tile text
-        regularTiles = randomTiles(24, regularTiles);
+        if (typeof regularTiles != "undefined") {
+            regularTiles = randomTiles(24, regularTiles);
+        } else {
+            regularTiles = randomTiles(24, defaultRegularTiles);
+        }
+
         $(".gen").each(function (index) {
+            // console.log(regularTiles[index]);
             tile = regularTiles[index].fields;
             $(this).html(tile.HTML);
             contributors.push(tile.Contributor);
         });
 
         // set free tile
-        freeTiles = randomTiles(1, freeTiles);
-        tile = freeTiles[0].fields;
-        $("#free").html(tile.HTML+"<br>(Free Space)");
-        contributors.push(tile.Contributor);
+        if (typeof fewwTiles != "undefined") {
+            freeTiles = randomTiles(1, freeTiles);
+            tile = freeTiles[0].fields;
+            $("#free").html(tile.HTML+"<br>(Free Space)");
+            contributors.push(tile.Contributor);
+        }
 
         // update contributors
         contributors = new Set(contributors);
