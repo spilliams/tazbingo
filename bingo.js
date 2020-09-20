@@ -100,7 +100,7 @@ function another() {
         });
 
         // set free tile
-        if (typeof fewwTiles != "undefined") {
+        if (typeof freeTiles != "undefined") {
             freeTiles = randomTiles(1, freeTiles);
             tile = freeTiles[0].fields;
             $("#free").html(tile.HTML+"<br>(Free Space)");
