@@ -33,7 +33,7 @@ function resize() {
     // console.log(`after accounting for overflowing width: ${h}, ${w}`);
 
     // colophon is below the fold, and is the final 10% of the height
-    colophon = 10;
+    colophonP = 10;
     finalH = Math.round(h / ((100-colophon)/100));
     w = Math.round(w);
     // console.log(`card is ${finalH} by ${w}`);
@@ -44,11 +44,14 @@ function resize() {
     $("#bingo").css({"height": ""+w+"px"});
 
     // title is the remainder of the original aspect ratio, minus 2 points
-    title = Math.round((100 * (aD - aN) / aD) - 2);
-    colophon = Math.round(colophon+2);
+    titleP = ((aD - aN) / aD) - 0.02;
+    colophonP = (colophonP+2)/100.0;
     // console.log(`title is ${title}% and colophon is ${colophon}%`);
-    $("#title").css({"height": ""+title+"%"});
-    $("#by").css({"height": ""+colophon+"%"});
+    $("#title").css({
+        "height": `${titleP*h}px`,
+        "line-height": `${titleP*h*0.95}px` // 0.95 is line-height from css
+    });
+    $("#by").css({"height": `${colophonP*h}px`});
 }
 
 function another() {
